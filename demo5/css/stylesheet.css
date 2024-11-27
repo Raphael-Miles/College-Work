@@ -1,0 +1,31 @@
+h2 {
+    background-color: beige;
+}
+
+.divone {
+    width: 200px;
+    height: 200px;
+    background-color: burlywood;
+    border: 10px solid white;
+}
+
+.divtwo {
+    width: 200px;
+    height: 200px;
+    background-color: cornsilk;
+    border: 10px solid goldenrod;
+}
+
+#divthree {
+    width: 200px;
+    height: 200px;
+    background-color: darkolivegreen;
+    border: 10px solid whitesmoke;
+}
+
+.header {
+    width: 120px;
+    height: 50px;
+    background-color: darksalmon;
+    border: 10px solid blanchedalmond;
+}
