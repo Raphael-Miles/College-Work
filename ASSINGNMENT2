@@ -1,0 +1,94 @@
+def main():
+    ''' things im missing include: 
+Only recieve five hours coaching a week,
+only intermediate and elite athletes cna enter comp '''
+    
+    # All required inputs with validation
+    athleteName = input('Please enter your name: ') 
+    # While true loops check for any human error in input
+    while True:
+        trainingPlan = input('Which training plan do you follow? (b for beginner, i for intermediate, or e for elite): ').lower()
+        if trainingPlan in ['b', 'i', 'e']:
+            break
+        print('Error.. Please enter a valid training plan (b, i, or e).')
+    
+    while True:
+        try:
+            kgWeight = float(input('Your current weight in kg: '))
+            if kgWeight > 0:
+                break
+            else:
+                print('Error.. Weight must be a positive number.')
+        except ValueError:
+            print('Error.. Please enter a valid number for weight.')
+    
+    while True:
+        comp_category = input('Which weight category do you belong to? hw for heavyweight, lhw for light heavyweight, mw for middleweight, lmw for light middleweight, lw for lightweight or fw for flyweight. ').lower()
+        if comp_category in ['hw', 'lhw', 'mw', 'lmw', 'lw', 'fw']:
+            break
+        print('Error.. Please enter a valid weight category (hw, lhw, mw, lmw, lw, or fw).')
+    
+    while True:
+        try:
+            num_of_comp = int(input('Number of competitions entered this month: '))
+            if num_of_comp >= 0:
+                break
+            else:
+                print('Error.. Number of competitions must be 0 or more.')
+        except ValueError:
+            print('Error.. Please enter a valid whole number for competitions.')
+    
+    while True:
+        try:
+            private_coaching_hrs = float(input('Number of hours privately coached? '))
+            if private_coaching_hrs >= 0:
+                break
+            else:
+                print('Error.. Private coaching hours must be 0 or more.')
+        except ValueError:
+            print('Error.. Please enter a valid number for private coaching hours.')
+    
+    comp_entry_fee = 22.00
+    private_tuition = 9.50
+
+    def print_all(athleteName, comp_weight, plan_price):
+        print(athleteName.upper())
+        print(f'Your current weight is {kgWeight} and your weight category is {comp_weight}')
+        print(f'Training plan cost for the month: £{plan_price:.2f} | Competitions: £{num_of_comp * comp_entry_fee} | Private tuition: £{private_coaching_hrs * private_tuition}')
+
+        total_1 = num_of_comp * comp_entry_fee
+        total_2 = private_coaching_hrs * private_tuition
+        ultimate_total = plan_price + total_1 + total_2
+        print(f'Your total is: £{ultimate_total:.2f}')
+
+    def training_plan(trainingPlan):
+        # Price in pounds
+        if trainingPlan == 'b':
+            return 25.00 * 4
+        if trainingPlan == 'i':
+            return 30.00 * 4
+        if trainingPlan == 'e':
+            return 35.00 * 4
+        return 0  # If no training plan
+    
+    def weight_categories(comp_category):
+        # Weight in KG
+        if comp_category == 'lhw':
+            return 100
+        elif comp_category == 'mw':  
+            return 90
+        elif comp_category == 'lmw':
+            return 81
+        elif comp_category == 'lw':
+            return 73
+        elif comp_category == 'fw':
+            return 66
+        else: 
+            return 101  # heavyweight is 100+
+
+    comp_weight = weight_categories(comp_category)
+    plan_price = training_plan(trainingPlan)
+
+    print_all(athleteName, comp_weight, plan_price)
+
+main()
