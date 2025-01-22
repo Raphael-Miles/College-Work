@@ -30,20 +30,24 @@ only intermediate and elite athletes cna enter comp '''
     while True:
         try:
             num_of_comp = int(input('Number of competitions entered this month: ')) 
-            if num_of_comp >= 0:
+            if trainingPlan == 'b':
+                num_of_comp = 0
+                print(f'As user is a beginner, comptetitions are defaulted to {num_of_comp}')
+                break
+            elif num_of_comp >= 0:
                 break
             else:
-                print('Error.. Number of competitions must be 0 or more.')
+                print('Error.. Number of competitions must be above 0 or above beginner level')
         except ValueError:
             print('Error.. Please enter a valid whole number for competitions.')
     
     while True:
         try:
             private_coaching_hrs = float(input('Number of hours privately coached? ')) # Now doesnt allow more than 5 private coaching hrs
-            if private_coaching_hrs >= 0 or < 6:
+            if private_coaching_hrs >= 0 and private_coaching_hrs < 6:
                 break
             else:
-                print('Error.. Private coaching hours must be 0 or more.')
+                print('Error.. Private coaching hours must be between 0 and 5.')
         except ValueError:
             print('Error.. Please enter a valid number for private coaching hours.')
     
