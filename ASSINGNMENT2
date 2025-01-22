@@ -30,7 +30,7 @@ only intermediate and elite athletes cna enter comp '''
     
     while True:
         try:
-            num_of_comp = int(input('Number of competitions entered this month: '))
+            num_of_comp = int(input('Number of competitions entered this month: ')) 
             if num_of_comp >= 0:
                 break
             else:
@@ -40,8 +40,8 @@ only intermediate and elite athletes cna enter comp '''
     
     while True:
         try:
-            private_coaching_hrs = float(input('Number of hours privately coached? '))
-            if private_coaching_hrs >= 0:
+            private_coaching_hrs = float(input('Number of hours privately coached? ')) # Now doesnt allow more than 5 private coaching hrs
+            if private_coaching_hrs >= 0 or < 6:
                 break
             else:
                 print('Error.. Private coaching hours must be 0 or more.')
