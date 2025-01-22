@@ -1,19 +1,13 @@
 def main():
-    '''
-    Athlete name must be a str
-    make program loop
-    
-    '''
 
     
     # All required inputs with validation
     while True:
         athleteName = input('Please enter your name: ').capitalize()
-        if isinstance(athleteName, str):
-        #if type(athleteName) == str:
+        if athleteName.isalpha():
             break
-        elif isinstance(athleteName, int):
-            print('Please enter a valid name..')
+        else:
+            print('Please enter a valid name')
 
     # While true loops check for any human error in input
     while True:
@@ -66,7 +60,8 @@ def main():
     private_tuition = 9.50
 
     def print_all(athleteName, comp_weight, plan_price):
-        print(athleteName.upper())
+        global ultimate_total
+        print(athleteName)
         print(f'Your current weight is {kgWeight} and your weight category is {comp_weight}')
         print(f'Training plan cost for the month: £{plan_price:.2f} | Competitions: £{num_of_comp * comp_entry_fee} | Private tuition: £{private_coaching_hrs * private_tuition}')
 
@@ -104,5 +99,26 @@ def main():
     plan_price = training_plan(trainingPlan)
 
     print_all(athleteName, comp_weight, plan_price)
+
+
+
+    go_again = input('Add another user? (y / n) ').lower()
+    if go_again == 'y':
+        main()
+        with open('userdata.txt', 'a') as file:
+            file.write(f'Name: {athleteName}\n')
+            file.write(f'{athleteName}s current weight: {kgWeight}kg and weight category: {comp_weight}kg\n')
+            file.write(f'Your total is: £{ultimate_total:.2f}\n')
+            file.write('--------------------------\n')
+        print(('Data has been saved'))
+    else:
+        print('Goodbye')
+        with open('userdata.txt', 'w') as file:
+            file.write(f'Name: {athleteName}\n')
+            file.write(f'{athleteName}s current weight: {kgWeight}kg and weight category: {comp_weight}kg\n')
+            file.write(f'Your total is: £{ultimate_total:.2f}\n')
+            file.write('--------------------------\n')
+        print(('Data has been saved'))
+
 
 main()
