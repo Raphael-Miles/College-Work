@@ -1,15 +1,26 @@
 def main():
-    ''' things im missing include: 
-only intermediate and elite athletes cna enter comp '''
+    '''
+    Athlete name must be a str
+    make program loop
+    
+    '''
+
     
     # All required inputs with validation
-    athleteName = input('Please enter your name: ') 
+    while True:
+        athleteName = input('Please enter your name: ').capitalize()
+        if isinstance(athleteName, str):
+        #if type(athleteName) == str:
+            break
+        elif isinstance(athleteName, int):
+            print('Please enter a valid name..')
+
     # While true loops check for any human error in input
     while True:
         trainingPlan = input('Which training plan do you follow? (b for beginner, i for intermediate, or e for elite): ').lower()
         if trainingPlan in ['b', 'i', 'e']:
             break
-        print('Error.. Please enter a valid training plan (b, i, or e).')
+        print('Error.. Please enter a valid training plan (b, i, or e).') 
     
     while True:
         try:
@@ -34,10 +45,10 @@ only intermediate and elite athletes cna enter comp '''
                 num_of_comp = 0
                 print(f'As user is a beginner, comptetitions are defaulted to {num_of_comp}')
                 break
-            elif num_of_comp >= 0:
+            elif num_of_comp >= 0 and num_of_comp < 3:
                 break
             else:
-                print('Error.. Number of competitions must be above 0 or above beginner level')
+                print('Error.. Number of competitions must be between 0 - 2 or above beginner level')
         except ValueError:
             print('Error.. Please enter a valid whole number for competitions.')
     
