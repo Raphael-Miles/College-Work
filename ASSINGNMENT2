@@ -1,6 +1,5 @@
 def main():
     ''' things im missing include: 
-Only recieve five hours coaching a week,
 only intermediate and elite athletes cna enter comp '''
     
     # All required inputs with validation
