@@ -1,7 +1,50 @@
-def main():
+def get_next_id():
+    try:
+        with open('userdata.txt', 'r') as file:
+            lines = file.readlines()
+            ids = []
+            for line in lines:
+                if line.startswith('ID:'):
+            
+                    ids.append(int(line.split(':')[1].strip()))
+            if ids:
+                return max(ids) + 1  
+            else:
+                return 200  
+    except FileNotFoundError:
+        return 200 
 
-    
-    # All required inputs with validation
+def main():
+    start_text = input('Good day ! Would you like to...\n1 [Open an account]\n2 [Manage an account]\n3 [Exit] ')
+    while True:
+        if start_text == '1':
+            break
+        elif start_text == '2':
+            with open('userdata.txt', 'r') as file:
+                lines = file.readlines()
+                id_input = int(input('Please enter your Id number: '))
+            
+                account_found = False
+                account_info = []
+                for i in range(0, len(lines)):
+                    if lines[i].startswith('ID:') and int(lines[i].split(':')[1].strip()) == id_input:
+                        account_info = lines[i:i+5] 
+                        account_found = True
+                        break
+                
+                if account_found:
+                    print('Account found:')
+                    for line in account_info:
+                        print(line.strip())
+                        
+                      
+                else:
+                    print('Account with that ID not found.')
+                    main()
+                
+        elif start_text == '3':
+            exit()
+        main()
     while True:
         athleteName = input('Please enter your name: ').capitalize()
         if athleteName.isalpha():
@@ -9,7 +52,6 @@ def main():
         else:
             print('Please enter a valid name')
 
-    # While true loops check for any human error in input
     while True:
         trainingPlan = input('Which training plan do you follow? (b for beginner, i for intermediate, or e for elite): ').lower()
         if trainingPlan in ['b', 'i', 'e']:
@@ -19,10 +61,10 @@ def main():
     while True:
         try:
             kgWeight = float(input('Your current weight in kg: '))
-            if kgWeight > 0:
+            if kgWeight > 0 and kgWeight <= 200:
                 break
             else:
-                print('Error.. Weight must be a positive number.')
+                print('Error.. Please enter a serious weight number.')
         except ValueError:
             print('Error.. Please enter a valid number for weight.')
     
@@ -37,7 +79,7 @@ def main():
             num_of_comp = int(input('Number of competitions entered this month: ')) 
             if trainingPlan == 'b':
                 num_of_comp = 0
-                print(f'As user is a beginner, comptetitions are defaulted to {num_of_comp}')
+                print(f'As user is a beginner, competitions are defaulted to {num_of_comp}')
                 break
             elif num_of_comp >= 0 and num_of_comp < 3:
                 break
@@ -48,7 +90,7 @@ def main():
     
     while True:
         try:
-            private_coaching_hrs = float(input('Number of hours privately coached? ')) # Now doesnt allow more than 5 private coaching hrs
+            private_coaching_hrs = float(input('Number of hours privately coached? '))
             if private_coaching_hrs >= 0 and private_coaching_hrs < 6:
                 break
             else:
@@ -71,17 +113,15 @@ def main():
         print(f'Your total is: £{ultimate_total:.2f}')
 
     def training_plan(trainingPlan):
-        # Price in pounds
         if trainingPlan == 'b':
             return 25.00 * 4
         if trainingPlan == 'i':
             return 30.00 * 4
         if trainingPlan == 'e':
             return 35.00 * 4
-        return 0  # If no training plan
+        return 0
     
     def weight_categories(comp_category):
-        # Weight in KG
         if comp_category == 'lhw':
             return 100
         elif comp_category == 'mw':  
@@ -93,32 +133,34 @@ def main():
         elif comp_category == 'fw':
             return 66
         else: 
-            return 101  # heavyweight is 100+
+            return 101
 
     comp_weight = weight_categories(comp_category)
     plan_price = training_plan(trainingPlan)
 
     print_all(athleteName, comp_weight, plan_price)
 
-
+    # Get next unique ID
+    id_num = get_next_id()
 
     go_again = input('Add another user? (y / n) ').lower()
     if go_again == 'y':
-        main()
         with open('userdata.txt', 'a') as file:
             file.write(f'Name: {athleteName}\n')
+            file.write(f'ID: {id_num}\n')
             file.write(f'{athleteName}s current weight: {kgWeight}kg and weight category: {comp_weight}kg\n')
             file.write(f'Your total is: £{ultimate_total:.2f}\n')
             file.write('--------------------------\n')
-        print(('Data has been saved'))
+        print(f'Data has been saved, Your ID is {id_num}')
+        main()
     else:
-        print('Goodbye')
-        with open('userdata.txt', 'w') as file:
+        with open('userdata.txt', 'a') as file:
             file.write(f'Name: {athleteName}\n')
+            file.write(f'ID: {id_num}\n')
             file.write(f'{athleteName}s current weight: {kgWeight}kg and weight category: {comp_weight}kg\n')
             file.write(f'Your total is: £{ultimate_total:.2f}\n')
             file.write('--------------------------\n')
-        print(('Data has been saved'))
-
+        print(f'Data has been saved, Your ID is {id_num}')
+        print('Goodbye')
 
 main()
